@@ -1,5 +1,5 @@
 # Local AI Voice Assistant  
-### (llama.cpp + SillyTavern + GPT-SoVITS)
+### (llama.cpp + SillyTavern + GPT-SoVITS-V2)
 
 ---
 
@@ -9,7 +9,7 @@ This project implements a **fully local AI conversational system** combining:
 
 - Local LLM inference using `llama.cpp`
 - Web-based chat interface via `SillyTavern`
-- Real-time voice output using `GPT-SoVITS v2`
+- Real-time voice output using `GPT-SoVITS-V2`
 
 The entire system runs **offline**, supports **GPU acceleration**, and demonstrates a modular multi-service AI architecture.
 
@@ -17,7 +17,7 @@ The entire system runs **offline**, supports **GPU acceleration**, and demonstra
 
 ## Features
 
-- Local LLM inference (Meta-Llama-3.1-8B-Instruct)
+- Local LLM inference (Meta-Llama-3.1-8B-Instruct-Q4_K_M)
 - CUDA GPU acceleration
 - SillyTavern web interface integration
 - Real-time AI voice generation
