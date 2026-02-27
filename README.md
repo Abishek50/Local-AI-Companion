@@ -84,16 +84,23 @@ During installation choose:
 
 ---
 
-## Create a new root folder and do the rest of the steps inside it.
+## Clone the Repository
 
-## STEP 2 — Build llama.cpp with GPU Support
-
-### Clone llama GIT repository
+Clone the repository with submodules:
 
 ```bash
-git clone https://github.com/ggml-org/llama.cpp.git
-
+git clone --recurse-submodules https://github.com/Abishek50/Local-AI-Companion.git
+cd Local-AI-Companion
 ```
+
+If you forgot the flag:
+
+```bash
+git submodule update --init --recursive
+```
+
+
+## STEP 2 — Build llama.cpp with GPU Support
 
 ### Clean Previous Build If Available
 
@@ -114,7 +121,7 @@ Open:
 Run:
 
 ```bash
-cd C:\Users\xxx\...\LLama\llama.cpp
+cd external\LLama\llama.cpp
 mkdir build
 cd build
 cmake .. -G "Visual Studio 17 2022" -A x64 -DLLAMA_CUDA=ON
@@ -127,7 +134,7 @@ cmake --build . --config Release
 
 ```bash
 .\llama-server.exe ^
---model "C:\Users\xxx\...\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
+--model "external\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
 --port 8080 ^
 --ctx-size 2048 ^
 --n-gpu-layers 999 ^
@@ -143,13 +150,6 @@ http://127.0.0.1:8080/
 ---
 
 ## STEP 4 — Setup SillyTavern
-
-### Clone SilyTavern GIT repository
-
-```bash
-git clone https://github.com/SillyTavern/SillyTavern.git
-
-```
 
 Inside the SillyTavern folder
 Run:
@@ -170,13 +170,6 @@ Click **Connect**.
 ---
 
 ## STEP 5 — Install GPT-SoVITS-V2 (Voice Synthesis)
-
-### Clone GPT-SoVITS-V2 GIT repository
-
-```bash
-git clone https://github.com/v3ucn/GPT-SoVITS-V2.git
-
-```
 
 ### Create New Virtual Environment Inside GPT-SoVITS-V2 Folder
 
@@ -241,7 +234,7 @@ Start services in this order:
 
 ```bash
 .\llama-server.exe ^
---model "C:\Users\xxx\...\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
+--model "external\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
 --port 8080 ^
 --ctx-size 2048 ^
 --n-gpu-layers 999 ^
@@ -278,6 +271,14 @@ System is now fully operational.
 
 ---
 
+## Verified Working Versions
+
+| Component | Commit |
+|-----------|--------|
+| llama.cpp | ecbcb7ea9d3303097519723b264a8b5f1e977028 |
+| SillyTavern | c536bfc7f59a5d8328c694f6009f95007b78ee93 |
+| GPT-SoVITS | e009a88be9ebc21324d4ac895320889c33350fe0 |
+
 # Future Improvements (TODO)
 
 - [x] **High Priority:**
@@ -296,7 +297,7 @@ System is now fully operational.
 ## Credits
 Special thanks to the following projects:
 
-### Forked repositories
+### Upstream projects
 - [GPT-SoVITS-V2](https://github.com/v3ucn/GPT-SoVITS-V2)
 - [llama.cpp](https://github.com/ggml-org/llama.cpp)
 - [SillyTavern](https://github.com/SillyTavern/SillyTavern)
