@@ -1,4 +1,4 @@
-# Local AI Companion  
+# Local AI Voice Companion  
 ### (llama.cpp + SillyTavern + GPT-SoVITS-V2)
 
 ---
