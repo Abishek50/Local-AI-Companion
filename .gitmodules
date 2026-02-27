@@ -1,0 +1,3 @@
+[submodule "GPT-SoVITS-V2"]
+	path = GPT-SoVITS-V2
+	url = https://github.com/v3ucn/GPT-SoVITS-V2.git
