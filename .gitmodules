@@ -1,3 +1,6 @@
 [submodule "GPT-SoVITS-V2"]
 	path = GPT-SoVITS-V2
 	url = https://github.com/v3ucn/GPT-SoVITS-V2.git
+[submodule "llama.cpp"]
+	path = llama.cpp
+	url = https://github.com/ggml-org/llama.cpp.git
