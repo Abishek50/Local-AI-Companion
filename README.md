@@ -84,9 +84,18 @@ During installation choose:
 
 ---
 
+## Create a new root folder and do the rest of the steps inside it.
+
 ## STEP 2 — Build llama.cpp with GPU Support
 
-### Clean Previous Build
+### Clone llama GIT repository
+
+```bash
+git clone https://github.com/ggml-org/llama.cpp.git
+
+```
+
+### Clean Previous Build If Available
 
 Delete:
 
@@ -135,6 +144,13 @@ http://127.0.0.1:8080/
 
 ## STEP 4 — Setup SillyTavern
 
+### Clone SilyTavern GIT repository
+
+```bash
+git clone https://github.com/SillyTavern/SillyTavern.git
+
+```
+
 Inside the SillyTavern folder
 Run:
 
@@ -155,12 +171,14 @@ Click **Connect**.
 
 ## STEP 5 — Install GPT-SoVITS-V2 (Voice Synthesis)
 
-### Create New Virtual Environment Or Use the Existing one
+### Clone GPT-SoVITS-V2 GIT repository
 
-Existing:
 ```bash
-sovits-env\Scripts\activate
+git clone https://github.com/v3ucn/GPT-SoVITS-V2.git
+
 ```
+
+### Create New Virtual Environment Inside GPT-SoVITS-V2 Folder
 
 New:
 ```bash
@@ -172,7 +190,9 @@ sovits-env-2\Scripts\activate
 
 ### Install Dependencies
 
+Make sure to download and place the requirements_locked_final.txt file inside GPT-SoVITS-V2 folder.
 This will download all the version locked dependencies that are required to get GPT-SoVITS-V2 working.
+
 ```bash
 pip install -r requirements_locked_final.txt
 ```
