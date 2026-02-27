@@ -4,3 +4,6 @@
 [submodule "llama.cpp"]
 	path = llama.cpp
 	url = https://github.com/ggml-org/llama.cpp.git
+[submodule "SillyTavern"]
+	path = SillyTavern
+	url = https://github.com/SillyTavern/SillyTavern.git
