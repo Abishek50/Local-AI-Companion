@@ -13,6 +13,7 @@ This project implements a **fully local AI conversational system** combining:
 
 The entire system runs **offline**, supports **GPU acceleration**, and demonstrates a modular multi-service AI architecture.
 
+Tested on: Windows 11 (CUDA 13.1, Visual Studio 2022)
 ---
 
 ## Features
@@ -38,10 +39,20 @@ The entire system runs **offline**, supports **GPU acceleration**, and demonstra
 
 ---
 
-## System Architecture
-
+## Repository Structure
 ```
-User Input → SillyTavern UI → llama.cpp Server → GPT-SoVITS → Audio Output
+external/
+ ├── llama.cpp
+ ├── SillyTavern
+ └── GPT-SoVITS-V2
+
+requirements_locked_final.txt
+README.md
+```
+
+## System Architecture
+```
+User → SillyTavern → llama.cpp (LLM) → GPT-SoVITS → Audio Output
 ```
 
 Each component runs independently with its own environment.
@@ -102,17 +113,11 @@ git submodule update --init --recursive
 
 ## STEP 2 — Build llama.cpp with GPU Support
 
-### Clean Previous Build If Available
-
-Delete:
-
-```
-\LLama\llama.cpp\build
-```
+If rebuilding, remove the existing Build directory.
 
 ---
 
-### Rebuild with CUDA Enabled
+### Build with CUDA Enabled
 
 Open:
 
@@ -121,7 +126,7 @@ Open:
 Run:
 
 ```bash
-cd external\LLama\llama.cpp
+cd external\llama.cpp
 mkdir build
 cd build
 cmake .. -G "Visual Studio 17 2022" -A x64 -DLLAMA_CUDA=ON
@@ -132,9 +137,19 @@ cmake --build . --config Release
 
 ## STEP 3 — Run llama.cpp Server
 
+Place the downloaded GGUF model inside external/llama.cpp/models/
+
+Note: Adjust --n-gpu-layers depending on available VRAM.
+
+Then run:
+
+```bash
+cd external\llama.cpp\build\Release
+```
+
 ```bash
 .\llama-server.exe ^
---model "external\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
+--model "external\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
 --port 8080 ^
 --ctx-size 2048 ^
 --n-gpu-layers 999 ^
@@ -194,10 +209,17 @@ pip install -r requirements_locked_final.txt
 
 ### Important Fix (Required)
 
+The current pip release of `LangSegment` does not include the
+`setLangfilters` and `getLangfilters` methods expected by GPT-SoVITS-V2.
+
+This results in an import/runtime error.
+
+To resolve:
+
 Edit file:
 
 ```
-GPT-SoVITS-V2\sovits2-venv\Lib\site-packages\LangSegment\__init__.py
+GPT-SoVITS-V2\sovits-env-2\Lib\site-packages\LangSegment\__init__.py
 ```
 
 Remove the following lines if present:
@@ -206,7 +228,7 @@ Remove the following lines if present:
 setLangfilters
 getLangfilters
 ```
-
+This resolves the import error caused by an upstream API mismatch.
 ---
 
 ### Run GPT-SoVITS-V2 API
@@ -234,7 +256,7 @@ Start services in this order:
 
 ```bash
 .\llama-server.exe ^
---model "external\LLama\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
+--model "external\llama.cpp\models\Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf" ^
 --port 8080 ^
 --ctx-size 2048 ^
 --n-gpu-layers 999 ^
@@ -257,7 +279,7 @@ python api_v2.py
 start.bat
 ```
 
-System is now fully operational.
+The local AI voice pipeline is now fully operational.
 
 ---
 
@@ -275,9 +297,9 @@ System is now fully operational.
 
 | Component | Commit |
 |-----------|--------|
-| llama.cpp | ecbcb7ea9d3303097519723b264a8b5f1e977028 |
-| SillyTavern | c536bfc7f59a5d8328c694f6009f95007b78ee93 |
-| GPT-SoVITS | e009a88be9ebc21324d4ac895320889c33350fe0 |
+| llama.cpp | [ecbcb7e](https://github.com/ggml-org/llama.cpp/commit/ecbcb7ea9d3303097519723b264a8b5f1e977028) |
+| SillyTavern | [c536bfc](https://github.com/SillyTavern/SillyTavern/commit/c536bfc7f59a5d8328c694f6009f95007b78ee93) |
+| GPT-SoVITS | [e009a88](https://github.com/v3ucn/GPT-SoVITS-V2/commit/e009a88be9ebc21324d4ac895320889c33350fe0) |
 
 # Future Improvements (TODO)
 
@@ -286,8 +308,8 @@ System is now fully operational.
   - [ ] Automated startup script.
 
 - [ ] **Features**
-  - [ ] Add real-time speech-to-text using Whisper
-  - [ ] Implement QDRANT vector databse for long-term memory
+  - [ ] Integrate local speech-to-text (e.g., whisper.cpp)
+  - [ ] Integrate Qdrant vector database for long-term memory retrieval
   - [ ] Reduce voice response latency and implement voice stream by chunks
   - [ ] Optimize GPU memory usage for multi-model execution
   - [ ] Experiment with MoE concept to have specialized personalities with dynamic switching
@@ -316,7 +338,7 @@ This project demonstrates:
 - Multi-service AI system integration
 - Real-time AI voice pipeline development
 - Virtual environment management
-- Version locks to reduce dependecy mismatch
+- Version locks to reduce dependency mismatch
 
 ---
 
