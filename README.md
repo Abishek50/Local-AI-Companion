@@ -5,7 +5,7 @@
 
 ## Overview
 
-This project implements a **fully local AI conversational system** combining:
+This project implements a **fully local AI conversational system** designed as a foundation for a persistent AI companion:
 
 - Local LLM inference using `llama.cpp`
 - Web-based chat interface via `SillyTavern`
