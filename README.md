@@ -144,7 +144,7 @@ Note: Adjust --n-gpu-layers depending on available VRAM.
 Then run:
 
 ```bash
-cd external\llama.cpp\build\Release
+cd external\llama.cpp\build\bin\Release
 ```
 
 ```bash
