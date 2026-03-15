@@ -1,9 +1,9 @@
 [submodule "GPT-SoVITS-V2"]
 	path = GPT-SoVITS-V2
-	url = https://github.com/v3ucn/GPT-SoVITS-V2.git
+	url = https://github.com/Abishek50/GPT-SoVITS-V2.git
 [submodule "llama.cpp"]
 	path = llama.cpp
 	url = https://github.com/ggml-org/llama.cpp.git
 [submodule "SillyTavern"]
 	path = SillyTavern
-	url = https://github.com/SillyTavern/SillyTavern.git
+	url = https://github.com/Abishek50/SillyTavern.git
